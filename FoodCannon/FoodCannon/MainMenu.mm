@@ -23,13 +23,25 @@
         CGSize s = [[CCDirector sharedDirector] winSize];
         
         // Play UTVCA Games intro
-        CCLabelTTF *utvcaGame = [CCLabelTTF labelWithString:@"GAMES" fontName:@"Thonburi" fontSize:29];
-        utvcaGame.position = ccp(s.width/2, s.height/2);
+        CCSprite *logo = [CCSprite spriteWithFile:@"logo.png"];
+        logo.position = ccp(s.width/2, s.height/1.7);
+        logo.opacity = 0;
+        [self addChild:logo];
+        [logo runAction:[CCSequence actions:
+                         [CCFadeIn actionWithDuration:4],
+                         [CCDelayTime actionWithDuration:1],
+                         [CCFadeOut actionWithDuration:1.5], 
+                         [CCCallFunc actionWithTarget:self selector:@selector(finish)], nil]];
+        
+        CCLabelTTF *utvcaGame = [CCLabelTTF labelWithString:@"G A M E S" fontName:@"Thonburi" fontSize:32];
+        utvcaGame.position = ccp(s.width/2, s.height/3);
         utvcaGame.opacity = 0;
         [self addChild:utvcaGame];
         [utvcaGame runAction:[CCSequence actions:
+                              [CCDelayTime actionWithDuration:1],
                               [CCFadeIn actionWithDuration:3],
-                              [CCFadeOut actionWithDuration:2], 
+                              [CCDelayTime actionWithDuration:.5],
+                              [CCFadeOut actionWithDuration:1.5], 
                               [CCCallFunc actionWithTarget:self selector:@selector(finish)], nil]];
          
                             

@@ -207,6 +207,8 @@
 		BEBBE6D1153F9746003954CA /* CCSprite+DisableTouch.mm in Sources */ = {isa = PBXBuildFile; fileRef = BEBBE63F153F93DB003954CA /* CCSprite+DisableTouch.mm */; };
 		BEBBE6D2153F9749003954CA /* GKWizard.mm in Sources */ = {isa = PBXBuildFile; fileRef = BEBBE6CB153F9602003954CA /* GKWizard.mm */; };
 		BEBBE6D3153F9DA8003954CA /* SF_Cartoonist_Hand_Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BEBBE639153F9233003954CA /* SF_Cartoonist_Hand_Bold.ttf */; };
+		BEBBE6DE153FAEDA003954CA /* logo-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = BEBBE6DC153FAEDA003954CA /* logo-hd.png */; };
+		BEBBE6DF153FAEDA003954CA /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = BEBBE6DD153FAEDA003954CA /* logo.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -614,6 +616,8 @@
 		BEBBE6C9153F9478003954CA /* MyContactListener.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MyContactListener.mm; sourceTree = "<group>"; };
 		BEBBE6CA153F9602003954CA /* GKWizard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWizard.h; sourceTree = "<group>"; };
 		BEBBE6CB153F9602003954CA /* GKWizard.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = GKWizard.mm; sourceTree = "<group>"; };
+		BEBBE6DC153FAEDA003954CA /* logo-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-hd.png"; sourceTree = "<group>"; };
+		BEBBE6DD153FAEDA003954CA /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -735,6 +739,8 @@
 		BEBBE445153F90D7003954CA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BEBBE6DC153FAEDA003954CA /* logo-hd.png */,
+				BEBBE6DD153FAEDA003954CA /* logo.png */,
 				BEBBE639153F9233003954CA /* SF_Cartoonist_Hand_Bold.ttf */,
 				BEBBE446153F90D7003954CA /* Default.png */,
 				BEBBE448153F90D7003954CA /* fps_images.png */,
@@ -1380,6 +1386,8 @@
 				BEBBE617153F90DA003954CA /* blocks.png in Resources */,
 				BEBBE6A9153F9429003954CA /* AdWhirlWebBrowser.xib in Resources */,
 				BEBBE6BC153F944C003954CA /* README.txt in Resources */,
+				BEBBE6DE153FAEDA003954CA /* logo-hd.png in Resources */,
+				BEBBE6DF153FAEDA003954CA /* logo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
