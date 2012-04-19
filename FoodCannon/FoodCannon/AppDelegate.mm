@@ -7,11 +7,12 @@
 //
 
 #import "cocos2d.h"
-
+#import "Game.h"
+#import "MainMenu.h"
 #import "AppDelegate.h"
 #import "GameConfig.h"
-#import "HelloWorldLayer.h"
 #import "RootViewController.h"
+#import "Constants.h"
 
 @implementation AppDelegate
 
@@ -44,7 +45,8 @@
     [FlurryAnalytics startSession:@"2I3SCJEBCZCE34CUM5SW"];
 	// Init the window
 	window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-	
+    timesPlayed = [[NSUserDefaults standardUserDefaults] integerForKey:kTimesPlayed];
+	currentSkin = SKIN;
 	// Try to use CADisplayLink director
 	// if it fails (SDK < 3.1) use the default director
 	if( ! [CCDirector setDirectorType:kCCDirectorTypeDisplayLink] )
@@ -72,7 +74,7 @@
 	[director setOpenGLView:glView];
 	
 //	// Enables High Res mode (Retina Display) on iPhone 4 and maintains low res on all other devices
-//	if( ! [director enableRetinaDisplay:YES] )
+	if( ! [director enableRetinaDisplay:YES] )
 //		CCLOG(@"Retina Display Not supported");
 	
 	//
@@ -112,19 +114,27 @@
 	[self removeStartupFlicker];
 	
 	// Run the intro Scene
-	[[CCDirector sharedDirector] runWithScene: [MainMenu scene]];
+	[[CCDirector sharedDirector] runWithScene: [MainMenu node]];
 }
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {
-	[[CCDirector sharedDirector] pause];
+	if ([self isGameScene]) {
+        [(Game *)[[CCDirector sharedDirector] runningScene] pauseGame];
+    } else 
+    {
+        [[CCDirector sharedDirector] pause]; 
+    }	
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-	[[CCDirector sharedDirector] resume];
+	if (![self isGameScene]) {
+        [[CCDirector sharedDirector] resume];
+    }
 }
 
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
+    CCLOG(@"applicationDidReceiveMemoryWarning");
 	[[CCDirector sharedDirector] purgeCachedData];
 }
 
@@ -150,6 +160,62 @@
 
 - (void)applicationSignificantTimeChange:(UIApplication *)application {
 	[[CCDirector sharedDirector] setNextDeltaTimeZero:YES];
+}
+
+- (void)finishedWithScore:(double)score
+{
+    if (score > [self getHighScore]) {
+        
+    }
+}
+
+- (double)getHighScore
+{
+    return [[NSUserDefaults standardUserDefaults] doubleForKey:kHighScoreKey];
+}
+#pragma mark -------
+
+- (void)pause
+{
+    if (![self isGameScene]) {
+        [[CCDirector sharedDirector] pause];
+    }
+}
+- (void)resume
+{
+    if (![self isGameScene]) {
+        [[CCDirector sharedDirector] resume];
+    }
+}
+
+- (BOOL)isGameScene
+{
+    return [[[CCDirector sharedDirector] runningScene] isKindOfClass:[Game class]];
+}
+
+- (NSString *)getCurrentSkin
+{
+    return currentSkin;
+}
+- (void)setCurrentSkin:(NSString *)skin
+{
+    currentSkin = skin;
+}
+
+- (UIViewController *)getViewController
+{
+    return viewController;
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex == 0)
+    {
+        return;
+    }
+    [[UIApplication sharedApplication] openURL: [NSURL URLWithString:@""]];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kDidRate];
+    
 }
 
 - (void)dealloc {
