@@ -14,6 +14,10 @@
     AppDelegate *delegate;
 }
 
+- (void)intro;
 - (void)playGame;
+//- (void)showLeaderboard;
+//- (void)showAchievements;
+- (void) finish;
 
 @end

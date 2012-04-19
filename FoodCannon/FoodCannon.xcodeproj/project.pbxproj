@@ -206,6 +206,7 @@
 		BEBBE6D0153F9744003954CA /* CCMenuPopup.mm in Sources */ = {isa = PBXBuildFile; fileRef = BEBBE641153F93DB003954CA /* CCMenuPopup.mm */; };
 		BEBBE6D1153F9746003954CA /* CCSprite+DisableTouch.mm in Sources */ = {isa = PBXBuildFile; fileRef = BEBBE63F153F93DB003954CA /* CCSprite+DisableTouch.mm */; };
 		BEBBE6D2153F9749003954CA /* GKWizard.mm in Sources */ = {isa = PBXBuildFile; fileRef = BEBBE6CB153F9602003954CA /* GKWizard.mm */; };
+		BEBBE6D3153F9DA8003954CA /* SF_Cartoonist_Hand_Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BEBBE639153F9233003954CA /* SF_Cartoonist_Hand_Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1366,6 +1367,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEBBE6D3153F9DA8003954CA /* SF_Cartoonist_Hand_Bold.ttf in Resources */,
 				BEBBE447153F90D7003954CA /* Default.png in Resources */,
 				BEBBE449153F90D7003954CA /* fps_images.png in Resources */,
 				BEBBE44B153F90D7003954CA /* Icon-72.png in Resources */,
