@@ -55,10 +55,9 @@
         
         // Create the HighScore label in the top right corner
         int fSize = 24;
-        CCLabelTTF *highScore = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"High Score: %d", [delegate getHighScore]] fontName:@"SF_Cartoonist_Hand_Bold.ttf" fontSize:fSize];
+        CCLabelTTF *highScore = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Coins: %d", [delegate getHighScore]] fontName:@"SF_Cartoonist_Hand_Bold.ttf" fontSize:fSize];
         highScore.anchorPoint = ccp(1,1);
         highScore.position = ccp(s.width,s.height);
-        highScore.opacity = 0;
         [self addChild:highScore];
         
         // Add Play button
