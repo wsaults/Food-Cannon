@@ -22,27 +22,31 @@
         // Initiliaztion code here.
         CGSize s = [[CCDirector sharedDirector] winSize];
         
-        // Play UTVCA Games intro
-        CCSprite *logo = [CCSprite spriteWithFile:@"logo.png"];
-        logo.position = ccp(s.width/2, s.height/1.7);
-        logo.opacity = 0;
-        [self addChild:logo];
-        [logo runAction:[CCSequence actions:
-                         [CCFadeIn actionWithDuration:4],
-                         [CCDelayTime actionWithDuration:1],
-                         [CCFadeOut actionWithDuration:1.5], 
-                         [CCCallFunc actionWithTarget:self selector:@selector(finish)], nil]];
         
-        CCLabelTTF *utvcaGame = [CCLabelTTF labelWithString:@"G A M E S" fontName:@"Thonburi" fontSize:32];
-        utvcaGame.position = ccp(s.width/2, s.height/3);
-        utvcaGame.opacity = 0;
-        [self addChild:utvcaGame];
-        [utvcaGame runAction:[CCSequence actions:
-                              [CCDelayTime actionWithDuration:1],
-                              [CCFadeIn actionWithDuration:3],
-                              [CCDelayTime actionWithDuration:.5],
-                              [CCFadeOut actionWithDuration:1.5], 
-                              [CCCallFunc actionWithTarget:self selector:@selector(finish)], nil]];
+        /*
+         * This style of intro wont work... Just using the UTVCA logo on the default.png
+         */
+//        // Play UTVCA Games intro
+//        CCSprite *logo = [CCSprite spriteWithFile:@"logo.png"];
+//        logo.position = ccp(s.width/2, s.height/1.7);
+//        logo.opacity = 0;
+//        [self addChild:logo];
+//        [logo runAction:[CCSequence actions:
+//                         [CCFadeIn actionWithDuration:4],
+//                         [CCDelayTime actionWithDuration:1],
+//                         [CCFadeOut actionWithDuration:1.5], 
+//                         [CCCallFunc actionWithTarget:self selector:@selector(finish)], nil]];
+//        
+//        CCLabelTTF *utvcaGame = [CCLabelTTF labelWithString:@"G A M E S" fontName:@"Thonburi" fontSize:28];
+//        utvcaGame.position = ccp(s.width/2, s.height/3);
+//        utvcaGame.opacity = 0;
+//        [self addChild:utvcaGame];
+//        [utvcaGame runAction:[CCSequence actions:
+//                              [CCDelayTime actionWithDuration:1],
+//                              [CCFadeIn actionWithDuration:3],
+//                              [CCDelayTime actionWithDuration:.5],
+//                              [CCFadeOut actionWithDuration:1.5], 
+//                              [CCCallFunc actionWithTarget:self selector:@selector(finish)], nil]];
          
                             
         
@@ -54,6 +58,7 @@
         CCLabelTTF *highScore = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"High Score: %d", [delegate getHighScore]] fontName:@"SF_Cartoonist_Hand_Bold.ttf" fontSize:fSize];
         highScore.anchorPoint = ccp(1,1);
         highScore.position = ccp(s.width,s.height);
+        highScore.opacity = 0;
         [self addChild:highScore];
         
         // Add Play button
