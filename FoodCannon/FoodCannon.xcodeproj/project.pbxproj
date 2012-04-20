@@ -209,6 +209,10 @@
 		BEBBE6D3153F9DA8003954CA /* SF_Cartoonist_Hand_Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BEBBE639153F9233003954CA /* SF_Cartoonist_Hand_Bold.ttf */; };
 		BEBBE6DE153FAEDA003954CA /* logo-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = BEBBE6DC153FAEDA003954CA /* logo-hd.png */; };
 		BEBBE6DF153FAEDA003954CA /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = BEBBE6DD153FAEDA003954CA /* logo.png */; };
+		BEFE529F1542295500612528 /* Ball.png in Resources */ = {isa = PBXBuildFile; fileRef = BEFE529D1542295500612528 /* Ball.png */; };
+		BEFE52A01542295500612528 /* Ball-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = BEFE529E1542295500612528 /* Ball-hd.png */; };
+		BEFE52A21542295F00612528 /* button_big-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = BEFE52A11542295F00612528 /* button_big-hd.png */; };
+		BEFE52A41542297100612528 /* button_big.png in Resources */ = {isa = PBXBuildFile; fileRef = BEFE52A31542297100612528 /* button_big.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -618,6 +622,10 @@
 		BEBBE6CB153F9602003954CA /* GKWizard.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = GKWizard.mm; sourceTree = "<group>"; };
 		BEBBE6DC153FAEDA003954CA /* logo-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-hd.png"; sourceTree = "<group>"; };
 		BEBBE6DD153FAEDA003954CA /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		BEFE529D1542295500612528 /* Ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Ball.png; sourceTree = "<group>"; };
+		BEFE529E1542295500612528 /* Ball-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ball-hd.png"; sourceTree = "<group>"; };
+		BEFE52A11542295F00612528 /* button_big-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_big-hd.png"; sourceTree = "<group>"; };
+		BEFE52A31542297100612528 /* button_big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_big.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -739,6 +747,7 @@
 		BEBBE445153F90D7003954CA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BEFE529B1542294C00612528 /* images */,
 				BEBBE6DC153FAEDA003954CA /* logo-hd.png */,
 				BEBBE6DD153FAEDA003954CA /* logo.png */,
 				BEBBE639153F9233003954CA /* SF_Cartoonist_Hand_Bold.ttf */,
@@ -1323,6 +1332,17 @@
 			path = "GSSDK 3.2.0";
 			sourceTree = "<group>";
 		};
+		BEFE529B1542294C00612528 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				BEFE52A31542297100612528 /* button_big.png */,
+				BEFE52A11542295F00612528 /* button_big-hd.png */,
+				BEFE529D1542295500612528 /* Ball.png */,
+				BEFE529E1542295500612528 /* Ball-hd.png */,
+			);
+			name = images;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1388,6 +1408,10 @@
 				BEBBE6BC153F944C003954CA /* README.txt in Resources */,
 				BEBBE6DE153FAEDA003954CA /* logo-hd.png in Resources */,
 				BEBBE6DF153FAEDA003954CA /* logo.png in Resources */,
+				BEFE529F1542295500612528 /* Ball.png in Resources */,
+				BEFE52A01542295500612528 /* Ball-hd.png in Resources */,
+				BEFE52A21542295F00612528 /* button_big-hd.png in Resources */,
+				BEFE52A41542297100612528 /* button_big.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1680,6 +1704,7 @@
 				BEBBE61C153F90DA003954CA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -60,7 +60,14 @@
         highScore.position = ccp(s.width,s.height);
         [self addChild:highScore];
         
-        // Add Play button
+        // Play button
+        CCSprite *normalSprite = [CCSprite spriteWithFile:@"button_big.png"];
+        CCMenuItemSprite *playButton = [CCMenuItemSprite itemFromNormalSprite:normalSprite selectedSprite:NULL target:self selector:@selector(playGame)];
+        
+        // Play button menu
+        CCMenu *mainPlay = [CCMenu menuWithItems:playButton, nil];
+        mainPlay.position = ccp(s.width/2,s.height/2 - s.height/3.5f);
+        [self addChild:mainPlay];
         
         /*
          * Group the next two buttons in a menu
