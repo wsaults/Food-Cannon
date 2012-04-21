@@ -201,7 +201,6 @@
 		BEBBE6BB153F944C003954CA /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BEBBE6B9153F944C003954CA /* libGoogleAdMobAds.a */; };
 		BEBBE6BC153F944C003954CA /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = BEBBE6BA153F944C003954CA /* README.txt */; };
 		BEBBE6C2153F9454003954CA /* libGreystripeSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BEBBE6C1153F9454003954CA /* libGreystripeSDK.a */; };
-		BEBBE6CC153F9736003954CA /* MyContactListener.mm in Sources */ = {isa = PBXBuildFile; fileRef = BEBBE6C9153F9478003954CA /* MyContactListener.mm */; };
 		BEBBE6CD153F973A003954CA /* PopUp.mm in Sources */ = {isa = PBXBuildFile; fileRef = BEBBE6C6153F9478003954CA /* PopUp.mm */; };
 		BEBBE6CE153F973C003954CA /* MainMenu.mm in Sources */ = {isa = PBXBuildFile; fileRef = BEBBE6C4153F9470003954CA /* MainMenu.mm */; };
 		BEBBE6CF153F973F003954CA /* Game.mm in Sources */ = {isa = PBXBuildFile; fileRef = BEBBE643153F9404003954CA /* Game.mm */; };
@@ -211,6 +210,7 @@
 		BEBBE6D3153F9DA8003954CA /* SF_Cartoonist_Hand_Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BEBBE639153F9233003954CA /* SF_Cartoonist_Hand_Bold.ttf */; };
 		BEBBE6DE153FAEDA003954CA /* logo-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = BEBBE6DC153FAEDA003954CA /* logo-hd.png */; };
 		BEBBE6DF153FAEDA003954CA /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = BEBBE6DD153FAEDA003954CA /* logo.png */; };
+		BEDB8A4F15431A1800C6D125 /* MyContactListener.mm in Sources */ = {isa = PBXBuildFile; fileRef = BEBBE6C9153F9478003954CA /* MyContactListener.mm */; };
 		BEFE529F1542295500612528 /* Ball.png in Resources */ = {isa = PBXBuildFile; fileRef = BEFE529D1542295500612528 /* Ball.png */; };
 		BEFE52A01542295500612528 /* Ball-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = BEFE529E1542295500612528 /* Ball-hd.png */; };
 		BEFE52A21542295F00612528 /* button_big-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = BEFE52A11542295F00612528 /* button_big-hd.png */; };
@@ -1599,7 +1599,7 @@
 				BEBBE6D0153F9744003954CA /* CCMenuPopup.mm in Sources */,
 				BEBBE6CE153F973C003954CA /* MainMenu.mm in Sources */,
 				BEBBE6CD153F973A003954CA /* PopUp.mm in Sources */,
-				BEBBE6CC153F9736003954CA /* MyContactListener.mm in Sources */,
+				BEDB8A4F15431A1800C6D125 /* MyContactListener.mm in Sources */,
 				BEBBE6CF153F973F003954CA /* Game.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

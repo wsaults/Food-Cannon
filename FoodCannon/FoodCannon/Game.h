@@ -32,6 +32,7 @@ enum GameStatePP {
     AppDelegate *delegate;
     
     CGSize s;
+    int numberOfObjects;
     double gameTime, score;
     bool isPaused;
     
@@ -72,6 +73,8 @@ enum GameStatePP {
 -(void)mainMenu;
 -(void)gameOver;
 -(void)playAgain;
+
+-(void)createObject;
 
 // returns a CCScene that contains the HelloWorldLayer as the only child
 +(CCScene *) scene;
