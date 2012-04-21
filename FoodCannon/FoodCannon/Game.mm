@@ -60,7 +60,7 @@
     gameTime = 0.00f;
     
     // Create the score label in the top left of the screen
-    int fSize = 18;
+    fSize = 18;
     scoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Coins: 0"] 
                                     fontName:@"SF_Cartoonist_Hand_Bold.ttf" 
                                     fontSize:fSize];
@@ -73,7 +73,7 @@
     CGSize winSize = [CCDirector sharedDirector].winSize;
     
     // Create a world
-    gravity = b2Vec2(0.0f, 0.0f);
+    gravity = b2Vec2(-0.5f, -3.5f);
     bool doSleep = true;
     _world = new b2World(gravity, doSleep);
     
@@ -90,6 +90,42 @@
     // Bottom bounds
     groundBox.SetAsEdge(b2Vec2(0,0), b2Vec2(winSize.width/PTM_RATIO,0));
     _bottomFixture = _groundBody->CreateFixture(&groundBoxDef);
+    
+#pragma mark - top body sprite
+    // top sprite
+    _topSprite = [CCSprite spriteWithFile:@"bottomTexture.png"
+                                        rect:CGRectMake(0, 0, 320, 2.5)];
+    _topSprite.position = ccp(winSize.width/2, winSize.height/1.0005);
+    _topSprite.tag = 3;
+    [self addChild:_topSprite];
+    
+    // Create bottom sprite body 
+    b2BodyDef topBodyDef;
+    topBodyDef.type = b2_dynamicBody;
+    topBodyDef.position.Set(winSize.width/2/PTM_RATIO, winSize.height/1.0005/PTM_RATIO);
+    topBodyDef.userData = _topSprite;
+    _topBody = _world->CreateBody(&topBodyDef);
+    
+    // Create bottom sprite shape
+    b2PolygonShape topSpriteShape;
+    topSpriteShape.SetAsBox(_topSprite.contentSize.width/PTM_RATIO/2, 
+                               _topSprite.contentSize.height/PTM_RATIO/2);
+    
+    // Create shape definition and add to body
+    topShapeDef.shape = &topSpriteShape;
+    topShapeDef.density = 0.5f;
+    topShapeDef.friction = 0.000f;
+    topShapeDef.restitution = 0.0f;
+    _topSpriteFixture = _topBody->CreateFixture(&topShapeDef);
+    
+    // Restrict paddle along the x axis
+    b2PrismaticJointDef jointDef;
+    b2Vec2 worldAxis(1.0f, 1.0f);
+    jointDef.collideConnected = true;
+    jointDef.Initialize(_topBody, _groundBody, 
+                        _topBody->GetWorldCenter(), worldAxis);
+    _world->CreateJoint(&jointDef);
+    // end top sprite
     
 #pragma mark - Bottom body sprite
     // Bottom sprite
@@ -119,8 +155,6 @@
     _bottomSpriteFixture = _bottomBody->CreateFixture(&bottomShapeDef);
     
     // Restrict paddle along the x axis
-    b2PrismaticJointDef jointDef;
-    b2Vec2 worldAxis(1.0f, 1.0f);
     jointDef.collideConnected = true;
     jointDef.Initialize(_bottomBody, _groundBody, 
                         _bottomBody->GetWorldCenter(), worldAxis);
@@ -154,6 +188,8 @@
         // The game time.
         // Time remaing = 60 seconds - gameTime
         gameTime += dt;
+        [scoreLabel setString:[NSString stringWithFormat:@"Coins: %d", score]];
+        
         
         #pragma mark - Moves the objects around the screen
             // Moves the objects around the screen
@@ -188,8 +224,13 @@
                 pos != _contactListener->_contacts.end(); ++pos) {
                 MyContact contact = *pos;
                 
-                if ((contact.fixtureA == _bottomFixture && contact.fixtureB == _ballFixture) ||
-                    (contact.fixtureA == _ballFixture && contact.fixtureB == _bottomFixture)) {
+                if ((contact.fixtureA == _topSpriteFixture && contact.fixtureB == _ballFixture) ||
+                    (contact.fixtureA == _ballFixture && contact.fixtureB == _topSpriteFixture)) {
+                    NSLog(@"Ball hit top!");
+                }
+                
+                if ((contact.fixtureA == _bottomSpriteFixture && contact.fixtureB == _ballFixture) ||
+                    (contact.fixtureA == _ballFixture && contact.fixtureB == _bottomSpriteFixture)) {
                     NSLog(@"Ball hit bottom!");
                 }
                 
@@ -199,18 +240,34 @@
                     CCSprite *spriteA = (CCSprite *) bodyB->GetUserData();
                     CCSprite *spriteB = (CCSprite *) bodyA->GetUserData();
                     
-                    // Sprite A = ball, Sprite B = Block
+#pragma mark - Top sprite detection to delete                     
+                    // Sprite A = ball, Sprite B = Top Sprite
+                    if (spriteA.tag == 1 && spriteB.tag == 3) {
+                        if (std::find(toDestroy.begin(), toDestroy.end(), bodyB) == toDestroy.end()) {
+                            toDestroy.push_back(bodyB);
+                            score += 10;
+                        }
+                    }
+                    // Sprite B = Top Sprite, Sprite A = ball
+                    else if (spriteA.tag == 3 && spriteB.tag == 1) {
+                        if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end()) {
+                            toDestroy.push_back(bodyA);
+                        }
+                    }
+                    
+#pragma mark - Bottom sprite detection to delete
+                    // Sprite A = ball, Sprite B = Bottom Sprite
                     if (spriteA.tag == 1 && spriteB.tag == 2) {
                         if (std::find(toDestroy.begin(), toDestroy.end(), bodyB) == toDestroy.end()) {
                             toDestroy.push_back(bodyB);
                         }
                     }
-                    // Sprite B = block, Sprite A = ball
+                    // Sprite B = Bottom Sprite, Sprite A = ball
                     else if (spriteA.tag == 2 && spriteB.tag == 1) {
                         if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end()) {
                             toDestroy.push_back(bodyA);
                         }
-                    }        
+                    }
                 }
             }
         std::vector<b2Body *>::iterator pos2;
@@ -218,6 +275,7 @@
             b2Body *body = *pos2;     
             if (body->GetUserData() != NULL) {
                 CCSprite *sprite = (CCSprite *) body->GetUserData();
+                CCLOG(@"Sprite tag equals: %d", sprite.tag);
                 [self removeChild:sprite cleanup:YES];
                 numberOfObjects--;
                 CCLOG(@"Object Destroyed, number of objects is: %d", numberOfObjects);
@@ -240,18 +298,51 @@
 
 -(void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    if (isPaused || _mouseJoint != NULL) {
+        return;
+    }
+    
+    UITouch *myTouch = [touches anyObject];
+    CGPoint location = [myTouch locationInView:[myTouch view]];
+    location = [[CCDirector sharedDirector] convertToGL:location];
+    b2Vec2 locationWorld = b2Vec2(location.x/PTM_RATIO, location.y/PTM_RATIO);
+    
+    if (_ballFixture->TestPoint(locationWorld)) {
+        b2MouseJointDef md;
+        md.bodyA = _groundBody;
+        md.bodyB = _ballBody;
+        md.target = locationWorld;
+        md.collideConnected = true;
+        md.maxForce = 200.0f * _ballBody->GetMass();
+        
+        _mouseJoint = (b2MouseJoint *)_world->CreateJoint(&md);
+        _ballBody->SetAwake(true);
+    }
 }
 
 -(void)ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    if (_mouseJoint == NULL) return;
     
+    UITouch *myTouch = [touches anyObject];
+    CGPoint location = [myTouch locationInView:[myTouch view]];
+    location = [[CCDirector sharedDirector] convertToGL:location];
+    b2Vec2 locationWorld = b2Vec2(location.x/PTM_RATIO, location.y/PTM_RATIO);
+    
+    _mouseJoint->SetTarget(locationWorld);
 }
 
 -(void)ccTouchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-
+    if (_mouseJoint) {
+        _world->DestroyJoint(_mouseJoint);
+        _mouseJoint = NULL;
+    }
 }
 
 - (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-
+    if (_mouseJoint) {
+        _world->DestroyJoint(_mouseJoint);
+        _mouseJoint = NULL;
+    }  
 }
 
 - (void)gameOver
@@ -316,7 +407,7 @@
     ballBodyDef.type = b2_dynamicBody;
     ballBodyDef.position.Set(100/PTM_RATIO, 100/PTM_RATIO);
     ballBodyDef.userData = ball;
-    b2Body * ballBody = _world->CreateBody(&ballBodyDef);
+    _ballBody = _world->CreateBody(&ballBodyDef);
     
     // Create circle shape
     b2CircleShape circle;
@@ -327,10 +418,10 @@
     ballShapeDef.density = 1.0f;
     ballShapeDef.friction = 0.001f;
     ballShapeDef.restitution = 1.0f;
-    _ballFixture = ballBody->CreateFixture(&ballShapeDef);
+    _ballFixture = _ballBody->CreateFixture(&ballShapeDef);
     
     b2Vec2 force = b2Vec2(10, 10);
-    ballBody->ApplyLinearImpulse(force, ballBodyDef.position);
+    _ballBody->ApplyLinearImpulse(force, ballBodyDef.position);
     // end ball
     
     numberOfObjects++;

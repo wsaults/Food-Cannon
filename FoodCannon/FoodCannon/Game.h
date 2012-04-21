@@ -32,8 +32,8 @@ enum GameStatePP {
     AppDelegate *delegate;
     
     CGSize s;
-    int numberOfObjects;
-    double gameTime, score;
+    int score, numberOfObjects, fSize;
+    double gameTime;
     bool isPaused;
     
     CCLabelTTF *scoreLabel;
@@ -44,6 +44,12 @@ enum GameStatePP {
     b2Body *_groundBody;
     b2Fixture *_bottomFixture;
     
+    // Top sprite
+    CCSprite *_topSprite;
+    b2FixtureDef topShapeDef;
+    b2Body *_topBody;
+    b2Fixture *_topSpriteFixture;
+    
     // Bottom sprite
     CCSprite *_bottomSprite;
     b2FixtureDef bottomShapeDef;
@@ -53,6 +59,9 @@ enum GameStatePP {
     // ball
     b2FixtureDef ballShapeDef;
     b2Fixture *_ballFixture;
+    b2Body *_ballBody;
+    
+    b2MouseJoint *_mouseJoint;
     
     // Contact Listener
     MyContactListener *_contactListener;
