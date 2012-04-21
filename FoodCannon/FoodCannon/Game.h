@@ -37,6 +37,16 @@ enum GameStatePP {
     
     CCLabelTTF *scoreLabel;
     
+    // World fixtures
+    b2Vec2 gravity;
+    b2World *_world;
+    b2Body *_groundBody;
+    b2Fixture *_bottomFixture;
+    
+    // ball
+    b2FixtureDef cat1ShapeDef;
+    b2Fixture *_cat1Fixture;
+    
     }
 
 // Add after @interface
