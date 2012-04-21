@@ -56,12 +56,31 @@
 
 - (void)startGame
 {    
-        [self schedule:@selector(tick:)];
+    // Initilze the gameTime
+    gameTime = 0.00f;
+    
+    // Create the score label in the top left of the screen
+    int fSize = 18;
+    scoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Coins: 0"] 
+                                    fontName:@"SF_Cartoonist_Hand_Bold.ttf" 
+                                    fontSize:fSize];
+
+    scoreLabel.anchorPoint = ccp(0,1);
+    scoreLabel.position = ccp(1,s.height);
+    [self addChild:scoreLabel];
+    
+    [self schedule:@selector(tick:)];
 }
 
 - (void)tick:(ccTime)dt
 {
     
+}
+
+-(void)didScore
+{
+    score++;
+    [scoreLabel setString:[NSString stringWithFormat:@"score:%i",score]];
 }
 
 -(void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -78,12 +97,6 @@
 
 - (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
 
-}
-
-
--(void)didScore
-{
-    
 }
 
 - (void)gameOver

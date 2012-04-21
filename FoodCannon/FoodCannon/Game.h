@@ -30,7 +30,12 @@ enum GameStatePP {
     enum GameStatePP _state;
     
     AppDelegate *delegate;
+    
     CGSize s;
+    double gameTime, score;
+    bool isPaused;
+    
+    CCLabelTTF *scoreLabel;
     
     }
 
@@ -38,6 +43,7 @@ enum GameStatePP {
 @property(nonatomic,retain) AdWhirlView *adWhirlView;
 @property(nonatomic) enum GameStatePP state;
 
+-(void)didScore;
 -(void)pauseGame;
 -(void)resumeGame;
 -(void)startGame;

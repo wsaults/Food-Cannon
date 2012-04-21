@@ -53,9 +53,8 @@
         [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
         delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         
-        // Create the HighScore label in the top right corner
-        int fSize = 24;
-        
+        // Create the HighScore label in the top left corner
+        int fSize = 18;
         CCLabelTTF *highScore = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Coins: %d", [delegate getHighScore]] fontName:@"SF_Cartoonist_Hand_Bold.ttf" fontSize:fSize];
         highScore.anchorPoint = ccp(0,1);
         highScore.position = ccp(1,s.height);
