@@ -55,23 +55,36 @@
         
         // Create the HighScore label in the top right corner
         int fSize = 24;
+        
         CCLabelTTF *highScore = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Coins: %d", [delegate getHighScore]] fontName:@"SF_Cartoonist_Hand_Bold.ttf" fontSize:fSize];
-        highScore.anchorPoint = ccp(1,1);
-        highScore.position = ccp(s.width,s.height);
+        highScore.anchorPoint = ccp(0,1);
+        highScore.position = ccp(1,s.height);
         [self addChild:highScore];
         
+#pragma mark - Play
         // Play button
         CCSprite *bigButton = [CCSprite spriteWithFile:@"button_big.png"];
         CCMenuItemSprite *playButton = [CCMenuItemSprite itemFromNormalSprite:bigButton 
                                                                selectedSprite:NULL 
                                                                        target:self 
                                                                      selector:@selector(playGame)];
-        
         // Play button menu
         CCMenu *mainPlay = [CCMenu menuWithItems:playButton, nil];
         mainPlay.position = ccp(s.width/2,s.height/2 - s.height/8.5f);
         [self addChild:mainPlay];
         
+#pragma mark - Free coins
+        // Free Coins button
+        CCSprite *freeCoinsButtonSprite = [CCSprite spriteWithFile:@"button_small.png"];
+        CCMenuItemSprite *freeCoinsButton = [CCMenuItemSprite itemFromNormalSprite:freeCoinsButtonSprite 
+                                                                    selectedSprite:NULL
+                                                                            target:self selector:@selector(showFreeCoins)];
+        // Free coins menu
+        CCMenu *freeCoinsMenu = [CCMenu menuWithItems:freeCoinsButton, nil];
+        freeCoinsMenu.position = ccp(s.width/2, s.height/5.5f);
+        [self addChild:freeCoinsMenu];
+        
+#pragma mark - Leaderboard, achievements, and store
         /*
          * Group the next two buttons in a menu
          */
@@ -89,13 +102,17 @@
                                                                               target:self 
                                                                             selector:@selector(showAchievements)];
         
+//        // Store button
+//        CCSprite *storeButtonSprite = [CCSprite spriteWithFile:@"button_small.png"];
+//        CCMenuItemSprite *storeButton = [CCMenuItemSprite itemFromNormalSprite:storeButtonSprite 
+//                                                                selectedSprite:NULL
+//                                                                        target:self selector:@selector(showStore)];
+        
         // Add the leaderboard button and achievements button to a menu
         CCMenu *menu = [CCMenu menuWithItems:leaderboardsButton, achievementsButton, nil];
         [menu alignItemsHorizontallyWithPadding:20];
         menu.position = ccp(s.width/2, 20);
         [self addChild:menu];
-        
-        // Add Store button
         
         // Add BG
         
@@ -111,6 +128,11 @@
 - (void)playGame
 {
     [[CCDirector sharedDirector] replaceScene:[Game scene]];
+}
+
+- (void)showFreeCoins
+{
+    // Popup alert from the delegate asking user to complete some task and earn coins
 }
 
 - (void)showLeaderboard

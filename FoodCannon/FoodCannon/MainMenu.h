@@ -16,6 +16,7 @@
 
 - (void)intro;
 - (void)playGame;
+- (void)showFreeCoins;
 - (void)showLeaderboard;
 - (void)showAchievements;
 - (void) finish;
