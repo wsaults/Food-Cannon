@@ -213,6 +213,8 @@
 		BEFE52A01542295500612528 /* Ball-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = BEFE529E1542295500612528 /* Ball-hd.png */; };
 		BEFE52A21542295F00612528 /* button_big-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = BEFE52A11542295F00612528 /* button_big-hd.png */; };
 		BEFE52A41542297100612528 /* button_big.png in Resources */ = {isa = PBXBuildFile; fileRef = BEFE52A31542297100612528 /* button_big.png */; };
+		BEFE52AA15422C5600612528 /* button_small-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = BEFE52A915422C5600612528 /* button_small-hd.png */; };
+		BEFE52AC15422C6500612528 /* button_small.png in Resources */ = {isa = PBXBuildFile; fileRef = BEFE52AB15422C6500612528 /* button_small.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -626,6 +628,8 @@
 		BEFE529E1542295500612528 /* Ball-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ball-hd.png"; sourceTree = "<group>"; };
 		BEFE52A11542295F00612528 /* button_big-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_big-hd.png"; sourceTree = "<group>"; };
 		BEFE52A31542297100612528 /* button_big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_big.png; sourceTree = "<group>"; };
+		BEFE52A915422C5600612528 /* button_small-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_small-hd.png"; sourceTree = "<group>"; };
+		BEFE52AB15422C6500612528 /* button_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_small.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1337,6 +1341,8 @@
 			children = (
 				BEFE52A31542297100612528 /* button_big.png */,
 				BEFE52A11542295F00612528 /* button_big-hd.png */,
+				BEFE52AB15422C6500612528 /* button_small.png */,
+				BEFE52A915422C5600612528 /* button_small-hd.png */,
 				BEFE529D1542295500612528 /* Ball.png */,
 				BEFE529E1542295500612528 /* Ball-hd.png */,
 			);
@@ -1412,6 +1418,8 @@
 				BEFE52A01542295500612528 /* Ball-hd.png in Resources */,
 				BEFE52A21542295F00612528 /* button_big-hd.png in Resources */,
 				BEFE52A41542297100612528 /* button_big.png in Resources */,
+				BEFE52AA15422C5600612528 /* button_small-hd.png in Resources */,
+				BEFE52AC15422C6500612528 /* button_small.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1636,6 +1644,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = FoodCannon/Prefix.pch;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = FoodCannon/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
@@ -1664,6 +1673,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = FoodCannon/Prefix.pch;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = FoodCannon/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (

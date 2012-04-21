@@ -61,19 +61,39 @@
         [self addChild:highScore];
         
         // Play button
-        CCSprite *normalSprite = [CCSprite spriteWithFile:@"button_big.png"];
-        CCMenuItemSprite *playButton = [CCMenuItemSprite itemFromNormalSprite:normalSprite selectedSprite:NULL target:self selector:@selector(playGame)];
+        CCSprite *bigButton = [CCSprite spriteWithFile:@"button_big.png"];
+        CCMenuItemSprite *playButton = [CCMenuItemSprite itemFromNormalSprite:bigButton 
+                                                               selectedSprite:NULL 
+                                                                       target:self 
+                                                                     selector:@selector(playGame)];
         
         // Play button menu
         CCMenu *mainPlay = [CCMenu menuWithItems:playButton, nil];
-        mainPlay.position = ccp(s.width/2,s.height/2 - s.height/3.5f);
+        mainPlay.position = ccp(s.width/2,s.height/2 - s.height/8.5f);
         [self addChild:mainPlay];
         
         /*
          * Group the next two buttons in a menu
          */
         // Add Leaderboard button
+        CCSprite *leaderboardButtonSprite = [CCSprite spriteWithFile:@"button_small.png"];
+        CCMenuItemSprite *leaderboardsButton = [CCMenuItemSprite itemFromNormalSprite:leaderboardButtonSprite
+                                                                      selectedSprite:NULL 
+                                                                              target:self 
+                                                                            selector:@selector(showLeaderboard)];
+        
         // Add Achievements button
+        CCSprite *achievementsButtonSprite = [CCSprite spriteWithFile:@"button_small.png"];
+        CCMenuItemSprite *achievementsButton = [CCMenuItemSprite itemFromNormalSprite:achievementsButtonSprite
+                                                                      selectedSprite:NULL 
+                                                                              target:self 
+                                                                            selector:@selector(showAchievements)];
+        
+        // Add the leaderboard button and achievements button to a menu
+        CCMenu *menu = [CCMenu menuWithItems:leaderboardsButton, achievementsButton, nil];
+        [menu alignItemsHorizontallyWithPadding:20];
+        menu.position = ccp(s.width/2, 20);
+        [self addChild:menu];
         
         // Add Store button
         
@@ -93,15 +113,15 @@
     [[CCDirector sharedDirector] replaceScene:[Game scene]];
 }
 
-//- (void)showLeaderboard
-//{
+- (void)showLeaderboard
+{
 //    [delegate showLeaderboard];
-//}
-//
-//- (void)showAchievements
-//{
+}
+
+- (void)showAchievements
+{
 //    [delegate showAchievements];
-//}
+}
 
 - (void)finish {
     
