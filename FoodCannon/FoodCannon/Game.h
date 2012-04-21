@@ -43,15 +43,26 @@ enum GameStatePP {
     b2Body *_groundBody;
     b2Fixture *_bottomFixture;
     
+    // Bottom sprite
+    CCSprite *_bottomSprite;
+    b2FixtureDef bottomShapeDef;
+    b2Body *_bottomBody;
+    b2Fixture *_bottomSpriteFixture;
+    
     // ball
-    b2FixtureDef cat1ShapeDef;
-    b2Fixture *_cat1Fixture;
+    b2FixtureDef ballShapeDef;
+    b2Fixture *_ballFixture;
+    
+    // Contact Listener
+    MyContactListener *_contactListener;
     
     }
 
 // Add after @interface
 @property(nonatomic,retain) AdWhirlView *adWhirlView;
 @property(nonatomic) enum GameStatePP state;
+@property (nonatomic, assign) CCTexture2D *texture;
+
 
 -(void)didScore;
 -(void)pauseGame;

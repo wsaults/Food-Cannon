@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BE80526E154252190048451D /* bottomTexture-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = BE80526C154252190048451D /* bottomTexture-hd.png */; };
+		BE80526F154252190048451D /* bottomTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = BE80526D154252190048451D /* bottomTexture.png */; };
 		BEBBE435153F90D7003954CA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEBBE434153F90D7003954CA /* QuartzCore.framework */; };
 		BEBBE437153F90D7003954CA /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEBBE436153F90D7003954CA /* OpenGLES.framework */; };
 		BEBBE439153F90D7003954CA /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEBBE438153F90D7003954CA /* OpenAL.framework */; };
@@ -218,6 +220,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BE80526C154252190048451D /* bottomTexture-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bottomTexture-hd.png"; sourceTree = "<group>"; };
+		BE80526D154252190048451D /* bottomTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bottomTexture.png; sourceTree = "<group>"; };
 		BEBBE430153F90D7003954CA /* FoodCannon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodCannon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEBBE434153F90D7003954CA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BEBBE436153F90D7003954CA /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -1339,6 +1343,8 @@
 		BEFE529B1542294C00612528 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				BE80526C154252190048451D /* bottomTexture-hd.png */,
+				BE80526D154252190048451D /* bottomTexture.png */,
 				BEFE52A31542297100612528 /* button_big.png */,
 				BEFE52A11542295F00612528 /* button_big-hd.png */,
 				BEFE52AB15422C6500612528 /* button_small.png */,
@@ -1420,6 +1426,8 @@
 				BEFE52A41542297100612528 /* button_big.png in Resources */,
 				BEFE52AA15422C5600612528 /* button_small-hd.png in Resources */,
 				BEFE52AC15422C6500612528 /* button_small.png in Resources */,
+				BE80526E154252190048451D /* bottomTexture-hd.png in Resources */,
+				BE80526F154252190048451D /* bottomTexture.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

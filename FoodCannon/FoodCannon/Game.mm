@@ -18,7 +18,7 @@
 
 @implementation Game
 
-@synthesize state = _state, adWhirlView;
+@synthesize state = _state, adWhirlView, texture;
 
 +(CCScene *) scene
 {
@@ -91,6 +91,41 @@
     groundBox.SetAsEdge(b2Vec2(0,0), b2Vec2(winSize.width/PTM_RATIO,0));
     _bottomFixture = _groundBody->CreateFixture(&groundBoxDef);
     
+#pragma mark - Bottom body sprite
+    // Bottom sprite
+    _bottomSprite = [CCSprite spriteWithFile:@"bottomTexture.png"
+                     rect:CGRectMake(0, 0, 320, 2.5)];
+    _bottomSprite.position = ccp(winSize.width/2, 5);
+    [self addChild:_bottomSprite];
+    
+    // Create bottom sprite body 
+    b2BodyDef bottomBodyDef;
+    bottomBodyDef.type = b2_dynamicBody;
+    bottomBodyDef.position.Set(winSize.width/2/PTM_RATIO, 5/PTM_RATIO);
+    bottomBodyDef.userData = _bottomSprite;
+    _bottomBody = _world->CreateBody(&bottomBodyDef);
+    
+    // Create bottom sprite shape
+    b2PolygonShape bottomSpriteShape;
+    bottomSpriteShape.SetAsBox(_bottomSprite.contentSize.width/PTM_RATIO/2, 
+                         _bottomSprite.contentSize.height/PTM_RATIO/2);
+    
+    // Create shape definition and add to body
+    bottomShapeDef.shape = &bottomSpriteShape;
+    bottomShapeDef.density = 0.5f;
+    bottomShapeDef.friction = 0.000f;
+    bottomShapeDef.restitution = 0.0f;
+    _bottomSpriteFixture = _bottomBody->CreateFixture(&bottomShapeDef);
+    
+    // Restrict paddle along the x axis
+    b2PrismaticJointDef jointDef;
+    b2Vec2 worldAxis(1.0f, 1.0f);
+    jointDef.collideConnected = true;
+    jointDef.Initialize(_bottomBody, _groundBody, 
+                        _bottomBody->GetWorldCenter(), worldAxis);
+    _world->CreateJoint(&jointDef);
+    // end bottom sprite
+    
     // Left bounds
     groundBox.SetAsEdge(b2Vec2(0,0), b2Vec2(0, winSize.height/PTM_RATIO));
     _groundBody->CreateFixture(&groundBoxDef);
@@ -113,25 +148,25 @@
     [self addChild:ball];
     
     // Create ball body 
-    b2BodyDef cat1BodyDef;
-    cat1BodyDef.type = b2_dynamicBody;
-    cat1BodyDef.position.Set(100/PTM_RATIO, 100/PTM_RATIO);
-    cat1BodyDef.userData = ball;
-    b2Body * cat1Body = _world->CreateBody(&cat1BodyDef);
+    b2BodyDef ballBodyDef;
+    ballBodyDef.type = b2_dynamicBody;
+    ballBodyDef.position.Set(100/PTM_RATIO, 100/PTM_RATIO);
+    ballBodyDef.userData = ball;
+    b2Body * ballBody = _world->CreateBody(&ballBodyDef);
     
     // Create circle shape
     b2CircleShape circle;
     circle.m_radius = 26.0/PTM_RATIO;
     
     // Create shape definition and add to body
-    cat1ShapeDef.shape = &circle;
-    cat1ShapeDef.density = 1.0f;
-    cat1ShapeDef.friction = 0.001f;
-    cat1ShapeDef.restitution = 1.0f;
-    _cat1Fixture = cat1Body->CreateFixture(&cat1ShapeDef);
+    ballShapeDef.shape = &circle;
+    ballShapeDef.density = 1.0f;
+    ballShapeDef.friction = 0.001f;
+    ballShapeDef.restitution = 1.0f;
+    _ballFixture = ballBody->CreateFixture(&ballShapeDef);
     
     b2Vec2 force = b2Vec2(10, 10);
-    cat1Body->ApplyLinearImpulse(force, cat1BodyDef.position);
+    ballBody->ApplyLinearImpulse(force, ballBodyDef.position);
     // end ball
 
     
@@ -146,30 +181,81 @@
         // Time remaing = 60 seconds - gameTime
         gameTime += dt;
         
-        _world->Step(dt, 10, 10);    
-        for(b2Body *b = _world->GetBodyList(); b; b=b->GetNext()) {    
-            if (b->GetUserData() != NULL) {
-                CCSprite *sprite = (CCSprite *)b->GetUserData();                        
-                sprite.position = ccp(b->GetPosition().x * PTM_RATIO,
-                                      b->GetPosition().y * PTM_RATIO);
-                sprite.rotation = -1 * CC_RADIANS_TO_DEGREES(b->GetAngle());
+    }// end if (!isPaused)
+        
+#pragma mark - Moves the objects around the screen
+    // Moves the objects around the screen
+    _world->Step(dt, 10, 10);    
+    for(b2Body *b = _world->GetBodyList(); b; b=b->GetNext()) {    
+        if (b->GetUserData() != NULL) {
+            CCSprite *sprite = (CCSprite *)b->GetUserData();                        
+            sprite.position = ccp(b->GetPosition().x * PTM_RATIO,
+                                  b->GetPosition().y * PTM_RATIO);
+            sprite.rotation = -1 * CC_RADIANS_TO_DEGREES(b->GetAngle());
+            
+            if (sprite.tag == 1) {
+                static int maxSpeed = 15;
                 
-                if (sprite.tag == 1) {
-                    static int maxSpeed = 10;
-                    
-                    b2Vec2 velocity = b->GetLinearVelocity();
-                    float32 speed = velocity.Length();
-                    
-                    if (speed > maxSpeed) {
-                        b->SetLinearDamping(0.5);
-                    } else if (speed < maxSpeed) {
-                        b->SetLinearDamping(0.0);
-                    }
-                    
+                b2Vec2 velocity = b->GetLinearVelocity();
+                float32 speed = velocity.Length();
+                
+                if (speed > maxSpeed) {
+                    b->SetLinearDamping(0.5);
+                } else if (speed < maxSpeed) {
+                    b->SetLinearDamping(0.0);
                 }
+                
             }
         }
     }
+    
+#pragma mark - Destroy sprite.
+//    // Destroy sprite on contact with bottom fixture
+//    std::vector<b2Body *>toDestroy;
+//    std::vector<MyContact>::iterator pos;
+//    for(pos = _contactListener->_contacts.begin(); 
+//        pos != _contactListener->_contacts.end(); ++pos) {
+//        MyContact contact = *pos;
+//        
+//        if ((contact.fixtureA == _bottomSpriteFixture && contact.fixtureB == _ballFixture) ||
+//            (contact.fixtureA == _ballFixture && contact.fixtureB == _bottomSpriteFixture)) {
+//            CCLOG(@"Ball hit the bottom fixture!");
+//            [self gameOver];
+//        }
+//        b2Body *bodyA = contact.fixtureA->GetBody();
+//        b2Body *bodyB = contact.fixtureB->GetBody();
+//        if (bodyA->GetUserData() != NULL && bodyB->GetUserData() != NULL) {
+//            CCSprite *spriteA = (CCSprite *) bodyA->GetUserData();
+//            CCSprite *spriteB = (CCSprite *) bodyB->GetUserData();
+//            
+//            // Sprite A = ball, Sprite B = Block
+//            if (spriteA.tag == 20 && spriteB.tag == 100) {
+//                if (std::find(toDestroy.begin(), toDestroy.end(), bodyB) 
+//                    == toDestroy.end()) {
+//                    toDestroy.push_back(bodyB);
+//                    CCLOG(@"Got Cheese Points!");
+//                }
+//            }
+//            // Sprite B = block, Sprite A = ball
+//            else if (spriteB.tag == 100 && spriteA.tag == 20) {
+//                if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) 
+//                    == toDestroy.end()) {
+//                    toDestroy.push_back(bodyA);
+//                    CCLOG(@"Got Cheese Points!");
+//                }
+//            }        
+//        }
+//    }
+//    
+//    std::vector<b2Body *>::iterator pos2;
+//    for(pos2 = toDestroy.begin(); pos2 != toDestroy.end(); ++pos2) {
+//        b2Body *body = *pos2;     
+//        if (body->GetUserData() != NULL) {
+//            CCSprite *sprite = (CCSprite *) body->GetUserData();
+//            [self removeChild:sprite cleanup:YES];
+//        }
+//        _world->DestroyBody(body);
+//    }
 }
 
 -(void)didScore
@@ -242,7 +328,9 @@
 
 - (void)dealloc
 {
-    
+    delete _world;
+    _groundBody = NULL;
+    delete _contactListener;
     CCLOG(@"dealloc: %@", self);
     [super dealloc];
 }
